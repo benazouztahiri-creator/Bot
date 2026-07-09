@@ -1,0 +1,3 @@
+- [x] Update layout.tsx: Change lang to "ar" and add dir="rtl"
+- [x] Update globals.css: Add direction: rtl to body
+- [x] Run the app to test the changes
