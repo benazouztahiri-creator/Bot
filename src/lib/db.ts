@@ -307,6 +307,10 @@ async function initializeSchema(): Promise<void> {
       END $$;
     `);
 
+    await client.query(`UPDATE orders SET status = 'delivered' WHERE status = 'seller_paid'`);
+    await client.query(`UPDATE users SET role = 'buyer' WHERE role = 'seller'`);
+    await client.query(`UPDATE disputes SET status = 'closed' WHERE status = 'resolved_seller'`);
+
     await client.query(`
       ALTER TABLE orders DROP CONSTRAINT IF EXISTS orders_status_check;
     `);
