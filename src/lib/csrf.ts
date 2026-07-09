@@ -20,6 +20,10 @@ export function validateOrigin(req: Request): boolean {
   }
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL;
+  const host = req.headers.get("host");
+  const protocol = req.headers.get("x-forwarded-proto") || "https";
+  const currentOrigin = host ? `${protocol}://${host}` : null;
+
   const allowedOrigins = [
     appUrl,
     "https://nexivo.space",
@@ -27,6 +31,7 @@ export function validateOrigin(req: Request): boolean {
     "http://localhost:3000",
     "http://localhost:3001",
     "http://127.0.0.1:3000",
+    currentOrigin,
   ].filter(Boolean);
 
   const checkUrl = origin || referer || "";
